@@ -124,10 +124,22 @@ paused since ~May 2026 (no commits, all repos) — but snacks is LazyVim's defau
 picker/explorer so its install base is enormous, and the code is stable; nvim-tree
 remains a one-line revert if it ever truly dies.
 
-**Enabled here:** `explorer` (the `<C-b>` sidebar — replaced nvim-tree),
-`dashboard` (bare `nvim`), `picker`, `notifier` (toast notifications), `input`
-(nicer vim.ui.input), `indent` (guides), `scope`, `scroll` (smooth), `statuscolumn`,
-`words` (LSP reference highlights + `]]`/`[[` jumps), `bigfile`, `quickfile`.
+### Enabled modules — what they are, how to use them
+
+| Module | What it is | How to use it |
+|---|---|---|
+| `explorer` | File-tree sidebar (replaced nvim-tree) | `<C-b>` toggle; keys below |
+| `dashboard` | Start screen on bare `nvim` | Press the button letters: `f` find file, `n` new, `g` grep, `r` recent, `c` config, `s` restore session, `L` Lazy, `q` quit |
+| `picker` | Telescope-class fuzzy finder (powers the explorer) | Unbound here (telescope owns `<leader>f*`); `:lua Snacks.picker.pick()` lists every source, e.g. `Snacks.picker.undo()`, `.resume()`, `.notifications()` |
+| `notifier` | Routes `vim.notify` into toast popups (top right) | Toasts auto-expire; history `:lua Snacks.notifier.show_history()`, dismiss all `:lua Snacks.notifier.hide()` |
+| `input` | Restyles `vim.ui.input` prompts | Passive — it's why LSP rename and explorer add/rename get a floating input |
+| `indent` | Indent guides; current scope's guide highlighted | Passive |
+| `scope` | Scope-aware textobjects and motions (treesitter/indent) | `vii`/`vai` select inner/full scope (any operator: `dii`, `yai`…); `[i` / `]i` jump to scope top/bottom edge |
+| `scroll` | Smooth scrolling | Passive — `<C-d>`/`<C-u>` animate instead of teleporting |
+| `statuscolumn` | Unified left column: numbers, git + diagnostic signs, fold marks | Passive; click fold marks to fold |
+| `words` | Highlights other references of the symbol under cursor (LSP) | Highlight is automatic; no default jump keys — `:lua Snacks.words.jump(1)` / `(-1)` for next/prev if wanted |
+| `bigfile` | Detects big files (>1.5MB) and disables treesitter/LSP etc. | Automatic — big logs open instantly |
+| `quickfile` | Renders the file you opened before the rest of startup finishes | Automatic |
 
 ### Explorer keys (it's a picker: just type to fuzzy-filter the tree)
 
