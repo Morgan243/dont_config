@@ -166,7 +166,9 @@ session), not the file. If the panel won't connect:
 | `<leader>o/` | Quick chat (works on a visual selection too) |
 | `<leader>op` | Pick provider/model (per session) |
 | `<leader>os` / `<leader>oT` | Select session / timeline picker |
-| `<leader>od` | Diff view of opencode's changes |
+| `<leader>od` | Diff view of opencode's changes (vs its pre-prompt snapshot — files are already on disk) |
+| `<leader>o]` / `<leader>o[` | Cycle next / previous change in the diff view (`<leader>oc` closes) |
+| `<leader>ort` / `<leader>ora` | Revert this / all changes from the last prompt (`orT`/`orA` = whole session) |
 | `<leader>oy` | Add visual selection to context |
 | `<leader>ot` | Toggle focus editor ↔ opencode |
 
