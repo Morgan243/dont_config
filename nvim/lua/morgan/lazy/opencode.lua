@@ -31,8 +31,12 @@ return {
         port = 12530,
       },
       context = {
-        -- current file, selection, and LSP diagnostics ride along by default
-        cursor_data = { enabled = true },
+        -- nothing auto-attaches: opt in per message with the # menu
+        -- (toggle back on) or @ mentions; <CR> in the popup confirms
+        current_file = { enabled = false },
+        selection = { enabled = false },
+        diagnostics = { enabled = false },
+        cursor_data = { enabled = false },
       },
     })
   end,

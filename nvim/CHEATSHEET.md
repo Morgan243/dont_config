@@ -171,7 +171,9 @@ Input window: `<S-CR>` submit, `@` mention file/agent, `~` file picker, `/`
 slash commands, `#` manage context, `<M-m>` switch build/plan mode, `<C-c>`
 cancel request. Output window: `]]`/`[[` prev/next message, `gf` jump to file,
 `<Tab>` swap pane. Permission prompts: `a` accept once, `A` accept all, `d` deny.
-Context rides along automatically: current file, selection, LSP diagnostics.
+**Context is opt-in** (all auto-attach off in our config): `#` opens the
+context menu (cmp popup — `<Tab>` move, `<CR>` toggles the item on/off), `@`
+mentions files/agents. The bar above the input shows what's attached.
 `:Opencode revert all prompt` undoes the last prompt's file changes.
 
 ## Snacks — folke's std-lib (one plugin, ~37 modules)
