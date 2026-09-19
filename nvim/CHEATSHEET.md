@@ -131,7 +131,7 @@ remains a one-line revert if it ever truly dies.
 | `explorer` | File-tree sidebar (replaced nvim-tree) | `<C-b>` toggle; keys below |
 | `dashboard` | Start screen on bare `nvim` | Press the button letters: `f` find file, `n` new, `g` grep, `r` recent, `c` config, `s` restore session, `L` Lazy, `q` quit |
 | `picker` | Telescope-class fuzzy finder (powers the explorer) | Unbound here (telescope owns `<leader>f*`); `:lua Snacks.picker.pick()` lists every source, e.g. `Snacks.picker.undo()`, `.resume()`, `.notifications()` |
-| `notifier` | Routes `vim.notify` into toast popups (top right) | Toasts auto-expire; history `:lua Snacks.notifier.show_history()`, dismiss all `:lua Snacks.notifier.hide()` |
+| `notifier` | Routes `vim.notify` into toast popups (top right) | Toasts auto-expire; `<leader>nh` searchable history, `<leader>nd` dismiss all |
 | `input` | Restyles `vim.ui.input` prompts | Passive — it's why LSP rename and explorer add/rename get a floating input |
 | `indent` | Indent guides; current scope's guide highlighted | Passive |
 | `scope` | Scope-aware textobjects and motions (treesitter/indent) | `vii`/`vai` select inner/full scope (any operator: `dii`, `yai`…); `[i` / `]i` jump to scope top/bottom edge |

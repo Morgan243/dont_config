@@ -83,7 +83,11 @@ vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>')
 vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
 
--- 
+-- Snacks notifier (toast) history
+vim.keymap.set('n', '<leader>nh', function() Snacks.picker.notifications() end, { desc = 'Notification history (picker)' })
+vim.keymap.set('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss all toasts' })
+
+--
 -- auto session
 vim.keymap.set('n', '<leader>wr', '<cmd>SessionSearch<CR>', { desc = 'Session search' } )
 vim.keymap.set('n', '<leader>ws', '<cmd>SessionSave<CR>', { desc = 'Save session' } )
