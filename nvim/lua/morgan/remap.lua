@@ -78,6 +78,8 @@ vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 -- Move to previous/next
 vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>')
 vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>')
+-- Close the current buffer (an entry in the top bar; these are buffers, not tab pages)
+vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
 
 -- 

@@ -12,9 +12,10 @@ is wired to yank/paste (`unnamedplus`).
 | Key | Action |
 |---|---|
 | `<C-b>` | Toggle nvim-tree file explorer |
-| `<A-,>` / `<A-.>` | Previous / next buffer tab (barbar) |
-| `<leader>tT` | "Fullscreen" window via `:tab split` — close the tab to go back |
-| `:tabc` (or `:q` in its last window) | Close current tab — how you exit the `<leader>tT` fullscreen; `gt`/`gT` cycle tabs |
+| `<A-,>` / `<A-.>` | Previous / next entry in the top bar (barbar — these are **buffers**, not tab pages) |
+| `<A-c>` | Close current buffer (`:BufferClose`) — how you close an entry in the top bar |
+| `<leader>tT` | "Fullscreen" window via `:tab split` — makes a real tab page |
+| `:tabc` | Close a real tab page (exits `<leader>tT` fullscreen; `gt`/`gT` cycle). Errors with "Cannot close last tab page" if there's only one — then you want `<A-c>`/`:bd` instead |
 | `<leader>?` | Which-key: buffer-local keymaps |
 
 ## Find (telescope)
