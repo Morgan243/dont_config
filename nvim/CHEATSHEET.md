@@ -55,10 +55,11 @@ Servers auto-enable from whatever mason has installed — currently basedpyright
 | `<space>f` | LSP format (async) |
 | `<space>wl` | List workspace folders |
 | `<leader>xx` / `<leader>xX` | Trouble: all / buffer diagnostics |
-| `<leader>cs` / `<leader>cl` | Trouble: symbols / LSP panel |
+| `<leader>cs` | Trouble: symbols |
 | `<leader>xL` / `<leader>xQ` | Trouble: loclist / quickfix |
 
 ⚠ Collision: `<space>wa`/`<space>wr` are bound twice — auto-session (defined later) wins; the LSP workspace-folder add/remove maps are shadowed.
+⚠ Collision: `<space>cl` is bound twice — iron REPL clear (in `lazy/iron.lua`) wins; Trouble's LSP-panel map is shadowed (run `:Trouble lsp` if you need it).
 
 ## Completion (nvim-cmp + minuet)
 
@@ -115,6 +116,33 @@ Generated diffs always wait for review (`co`/`ct` accept ours/theirs).
 | `<C-m>s` / `<C-m>d` | `:Mselect` / `:Mdelete` |
 
 `curl http://fractal:12500/placement` shows who owns GPU 0 before you commit to a heavy ask.
+
+## Claude Code (claudecode.nvim) — full agent, NOT the arbiter
+
+Unlike the tools above, this talks to **Anthropic's API** via the Claude Code CLI
+(`/usr/bin/claude`, installed globally) — nothing here routes through the local
+GPU fleet. The plugin hosts a WebSocket MCP server the CLI connects to, so
+Claude sees your current file/selection live, can open files, and proposes
+edits as native nvim diffs. Spec: `lazy/claudecode.lua`.
+
+The `<leader>c` prefix is **shared** — `c{a,m,s,l}` belong to code action /
+Mason / Trouble symbols / iron REPL clear; Claude only uses the free letters.
+
+| Key | Action |
+|---|---|
+| `<leader>cc` | Toggle Claude in a split (`:ClaudeCode`) |
+| `<leader>cf` | Focus / toggle the Claude pane |
+| `<leader>cr` / `<leader>cC` | Resume / continue a session |
+| `<leader>cM` | Pick a Claude model |
+| `<leader>cb` | Add current buffer to Claude's context |
+| `<leader>cs` (visual only) | Send selection to Claude — normal-mode `<leader>cs` is still Trouble symbols |
+| `<leader>cs` (in snacks explorer) | Add the hovered file to context — shadows Trouble's symbols map inside the tree |
+| `<leader>cy` / `<leader>cn` | Accept / deny Claude's proposed diff |
+
+Claude's edits open as native diff buffers: `:w` (or `<leader>cy`) accepts,
+`:q` (or `<leader>cn`) rejects — you can edit the proposal before accepting.
+`:ClaudeCodeCloseAllDiffs` clears leftover pending proposals.
+`:ClaudeCodeStatus` and `:checkhealth claudecode` for diagnostics.
 
 ## Snacks — folke's std-lib (one plugin, ~37 modules)
 
