@@ -11,7 +11,7 @@ is wired to yank/paste (`unnamedplus`).
 
 | Key | Action |
 |---|---|
-| `<C-b>` | Toggle nvim-tree file explorer |
+| `<C-b>` | Toggle snacks explorer (also auto-opens when nvim starts on a directory) |
 | `<A-,>` / `<A-.>` | Previous / next entry in the top bar (barbar — these are **buffers**, not tab pages) |
 | `<A-c>` | Close current buffer (`:BufferClose`) — how you close an entry in the top bar |
 | `<leader>tT` | "Fullscreen" window via `:tab split` — makes a real tab page |
@@ -27,7 +27,7 @@ is wired to yank/paste (`unnamedplus`).
 | `<leader>fb` | Buffers |
 | `<leader>fh` | Help tags |
 
-Snacks is fully enabled too: dashboard on bare `nvim`, `:lua Snacks.picker.pick()`, notifier, indent guides, `bigfile`, LSP-word highlights.
+Snacks provides a full picker too (`:lua Snacks.picker.pick()`) — see the Snacks section below.
 
 ## Harpoon
 
@@ -115,6 +115,54 @@ Generated diffs always wait for review (`co`/`ct` accept ours/theirs).
 | `<C-m>s` / `<C-m>d` | `:Mselect` / `:Mdelete` |
 
 `curl http://fractal:12500/placement` shows who owns GPU 0 before you commit to a heavy ask.
+
+## Snacks — folke's std-lib (one plugin, ~37 modules)
+
+Each module is independently toggleable in `lazy/snacks.lua`; enabling a module
+costs nothing until used. Status note (2026-09): folke's whole ecosystem has been
+paused since ~May 2026 (no commits, all repos) — but snacks is LazyVim's default
+picker/explorer so its install base is enormous, and the code is stable; nvim-tree
+remains a one-line revert if it ever truly dies.
+
+**Enabled here:** `explorer` (the `<C-b>` sidebar — replaced nvim-tree),
+`dashboard` (bare `nvim`), `picker`, `notifier` (toast notifications), `input`
+(nicer vim.ui.input), `indent` (guides), `scope`, `scroll` (smooth), `statuscolumn`,
+`words` (LSP reference highlights + `]]`/`[[` jumps), `bigfile`, `quickfile`.
+
+### Explorer keys (it's a picker: just type to fuzzy-filter the tree)
+
+| Key | Action |
+|---|---|
+| `l` / `h` | Open / close directory (`<BS>` = up a level) |
+| `a` / `d` / `r` | Add / delete / rename (rename is LSP-aware) |
+| `c` / `m` / `y` / `p` | Copy / move / yank / paste files |
+| `o` | Open with system application |
+| `.` / `<C-c>` | Focus dir as root / `:tcd` to it |
+| `<leader>/` | Grep inside the selected directory |
+| `<C-t>` | Terminal in the selected directory |
+| `H` / `I` / `Z` | Toggle hidden / toggle ignored / close all dirs |
+| `]g` `[g`, `]d` `[d`, `]e` `[e` | Next/prev git-changed, diagnostic, error file |
+| `q` | Close explorer (or `<C-b>` from anywhere) |
+
+### Available but not enabled (the rest of the ecosystem)
+
+| Module | What it gives you |
+|---|---|
+| `lazygit` / `terminal` | Float lazygit; toggleable terminals (`Snacks.terminal()`) |
+| `image` | Inline images via kitty graphics — candidate to replace 3rd/image.nvim for molten |
+| `rename` | LSP-aware file rename other plugins can call |
+| `gitbrowse` | Open current line/range on GitHub/GitLab in browser |
+| `scratch` | Persistent per-project scratch buffers |
+| `zen` / `dim` | Zen mode; dim inactive scopes |
+| `bufdelete` | Close buffer w/o breaking layout (barbar covers this here) |
+| `toggle` | Keymap-toggles for options with which-key labels |
+| `animate` / `layout` / `win` | Animation/window/layout primitives (libraries for the rest) |
+| `profiler` / `debug` | Lua profiler; debug printing |
+| `gh` / `git` | GitHub + git helpers (used by picker sources) |
+
+Picker sources cover ~20 families: files, grep, buffers, LSP (symbols/refs/etc.),
+diagnostics, git (+GitHub), help, recent, undo, quickfix, treesitter — a full
+telescope replacement whenever you feel like consolidating further.
 
 ## Sessions (auto-session)
 

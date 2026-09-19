@@ -34,8 +34,9 @@ vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
 
--- Nvimtree
-vim.keymap.set("n", "<C-b>", ':NvimTreeToggle<CR>')
+-- Snacks explorer (replaced nvim-tree 2026-09: same tree, plus live fuzzy
+-- filter and picker-consistent UI; also auto-opens when nvim starts on a dir)
+vim.keymap.set("n", "<C-b>", function() Snacks.explorer() end, { desc = "Toggle file explorer" })
 
 
 -- Harpoon
