@@ -98,6 +98,15 @@ local function words_jump(dir, key)
 end
 vim.keymap.set('n', ']]', words_jump(1, ']]'), { desc = 'Next reference (or section)' })
 vim.keymap.set('n', '[[', words_jump(-1, '[['), { desc = 'Prev reference (or section)' })
+-- Some stock ftplugins (python: next/prev class/def) define BUFFER-LOCAL
+-- ]] / [[ which shadow the global maps. Words needs LSP anyway, so re-assert
+-- buffer-locally when an LSP attaches (LspAttach fires after ftplugin).
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    vim.keymap.set('n', ']]', words_jump(1, ']]'), { buffer = ev.buf, desc = 'Next reference (or section)' })
+    vim.keymap.set('n', '[[', words_jump(-1, '[['), { buffer = ev.buf, desc = 'Prev reference (or section)' })
+  end,
+})
 
 -- Snacks notifier (toast) history
 vim.keymap.set('n', '<leader>nh', function() Snacks.picker.notifications() end, { desc = 'Notification history (picker)' })
