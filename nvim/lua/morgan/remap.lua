@@ -83,10 +83,21 @@ vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>')
 vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
 
--- Snacks words: jump between LSP references of the symbol under cursor
--- (replaces the rarely-used "next/prev section" motions)
-vim.keymap.set('n', ']]', function() Snacks.words.jump(vim.v.count1, true) end, { desc = 'Next reference' })
-vim.keymap.set('n', '[[', function() Snacks.words.jump(-vim.v.count1, true) end, { desc = 'Prev reference' })
+-- Snacks words: jump between LSP references of the symbol under cursor.
+-- Falls back to the builtin section motion when there are no highlights
+-- (no LSP in the buffer, or cursor not on a symbol yet — words debounces
+-- ~200ms after cursor move).
+local function words_jump(dir, key)
+  return function()
+    if Snacks.words.is_enabled() then
+      Snacks.words.jump(dir * vim.v.count1, true)
+    else
+      vim.cmd('normal! ' .. vim.v.count1 .. key)
+    end
+  end
+end
+vim.keymap.set('n', ']]', words_jump(1, ']]'), { desc = 'Next reference (or section)' })
+vim.keymap.set('n', '[[', words_jump(-1, '[['), { desc = 'Prev reference (or section)' })
 
 -- Snacks notifier (toast) history
 vim.keymap.set('n', '<leader>nh', function() Snacks.picker.notifications() end, { desc = 'Notification history (picker)' })
