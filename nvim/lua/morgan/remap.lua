@@ -7,8 +7,10 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+-- snacks picker, not telescope: it also lists colorschemes from UNLOADED
+-- lazy plugins (the colors_extra.lua pack), which telescope can't see
 vim.keymap.set('n', '<leader>fc', function()
-  builtin.colorscheme({ enable_preview = true })
+  Snacks.picker.colorschemes()
 end, { desc = 'Colorscheme picker (live preview)' })
 
 -- Hack to sort of full screen a window by copying it to it's own tab
