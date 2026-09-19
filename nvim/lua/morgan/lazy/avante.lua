@@ -43,6 +43,9 @@ return {
       },
     },
     behaviour = {
+      -- read-only tools run freely; anything that writes or runs bash asks first
+      -- (upstream default is true = auto-approve EVERYTHING, bash included)
+      auto_approve_tool_permissions = { "view", "glob", "grep", "ls" },
       auto_suggestions = false, -- keep off: suggestions would hammer GPU 0
       auto_set_highlight_group = true,
       auto_set_keymaps = true,

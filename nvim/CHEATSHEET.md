@@ -14,6 +14,7 @@ is wired to yank/paste (`unnamedplus`).
 | `<C-b>` | Toggle nvim-tree file explorer |
 | `<A-,>` / `<A-.>` | Previous / next buffer tab (barbar) |
 | `<leader>tT` | "Fullscreen" window via `:tab split` — close the tab to go back |
+| `:tabc` (or `:q` in its last window) | Close current tab — how you exit the `<leader>tT` fullscreen; `gt`/`gT` cycle tabs |
 | `<leader>?` | Which-key: buffer-local keymaps |
 
 ## Find (telescope)
@@ -98,6 +99,10 @@ Quarto (`.qmd`) runs cells through iron as well. yarepl is installed as backup (
 Model names route via llama-swap; both defaults are **GPU-0** profiles, so a
 request while vLLM owns the card triggers a drain + engine swap (up to ~3 min),
 and densify owns GPU 0 22:00–06:45. No auth.
+
+Avante tool permissions: read-only tools (`view`/`glob`/`grep`/`ls`) run without
+asking; anything that writes files or runs bash prompts first (inline buttons).
+Generated diffs always wait for review (`co`/`ct` accept ours/theirs).
 
 | Key / Command | Action |
 |---|---|
