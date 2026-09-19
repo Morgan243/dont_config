@@ -17,6 +17,7 @@ is wired to yank/paste (`unnamedplus`).
 | `<leader>tT` | "Fullscreen" window via `:tab split` — makes a real tab page |
 | `:tabc` | Close a real tab page (exits `<leader>tT` fullscreen; `gt`/`gT` cycle). Errors with "Cannot close last tab page" if there's only one — then you want `<A-c>`/`:bd` instead |
 | `<leader>?` | Which-key: buffer-local keymaps |
+| `<leader>tc` | Toggle sticky scope context — enclosing `class`/`def` signature lines pinned at the top of the window (treesitter-context, max 4 lines) |
 | `<C-/>` | Toggle terminal at project root (same key hides it; double-`<Esc>` for normal mode inside) |
 | `<leader>tp` | Run current python file in a fresh terminal split (`uv run` if the project has `pyproject.toml`, else `python3`) |
 
