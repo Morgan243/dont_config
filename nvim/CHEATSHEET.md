@@ -144,6 +144,35 @@ Claude's edits open as native diff buffers: `:w` (or `<leader>cy`) accepts,
 `:ClaudeCodeCloseAllDiffs` clears leftover pending proposals.
 `:ClaudeCodeStatus` and `:checkhealth claudecode` for diagnostics.
 
+## opencode.nvim — the board's harness, in-editor
+
+The same opencode CLI the taskboard dispatches, as an nvim sidebar. It spawns
+`opencode serve` itself and inherits `~/.config/opencode/opencode.json` — the
+**fractal arbiter provider (39 models)**. Don't tune that file for nvim (the
+board shares it); pick models per session instead.
+
+⚠ The global default model is `fractal/qwen3.8-27b-96k` — a **vLLM GPU-0
+engine**: first prompt while llama-swap owns GPU 0 = engine swap, minutes.
+`<leader>op` → pick `qwen3.8-27b-q8` for fleet-resident chat.
+
+| Key | Action |
+|---|---|
+| `<leader>og` | Toggle opencode panel |
+| `<leader>oi` / `<leader>oI` | Open input (current / new session) |
+| `<leader>o/` | Quick chat (works on a visual selection too) |
+| `<leader>op` | Pick provider/model (per session) |
+| `<leader>os` / `<leader>oT` | Select session / timeline picker |
+| `<leader>od` | Diff view of opencode's changes |
+| `<leader>oy` | Add visual selection to context |
+| `<leader>ot` | Toggle focus editor ↔ opencode |
+
+Input window: `<S-CR>` submit, `@` mention file/agent, `~` file picker, `/`
+slash commands, `#` manage context, `<M-m>` switch build/plan mode, `<C-c>`
+cancel request. Output window: `]]`/`[[` prev/next message, `gf` jump to file,
+`<Tab>` swap pane. Permission prompts: `a` accept once, `A` accept all, `d` deny.
+Context rides along automatically: current file, selection, LSP diagnostics.
+`:Opencode revert all prompt` undoes the last prompt's file changes.
+
 ## Snacks — folke's std-lib (one plugin, ~37 modules)
 
 Each module is independently toggleable in `lazy/snacks.lua`; enabling a module

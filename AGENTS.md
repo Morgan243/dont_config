@@ -86,6 +86,10 @@ Personal dotfiles/config repo. Currently one payload: the Neovim config in
   don't regress this on a box running the live fleet and board.
 - Ollama (`fractal:11434`) is DEAD (retired 2026-06). Any config pointing
   there is a bug.
+- opencode.nvim inherits `~/.config/opencode/opencode.json` — that file is
+  SHARED with the canopy taskboard: never tune it for nvim. Its default model
+  (`fractal/qwen3.8-27b-96k`) is a vLLM GPU-0 engine; in-editor, switch to a
+  fleet model per session with `<leader>op`.
 - Deeper context: `~/Projects/canopy_nine_ops/docs/operating.md` (overseer
   runbook), `~/Projects/llm-arbiter` (arbiter implementation), and
   `GET http://fractal:12500/placement` for live GPU ownership.
