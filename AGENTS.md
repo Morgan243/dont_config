@@ -87,9 +87,13 @@ Personal dotfiles/config repo. Currently one payload: the Neovim config in
 - Ollama (`fractal:11434`) is DEAD (retired 2026-06). Any config pointing
   there is a bug.
 - opencode.nvim inherits `~/.config/opencode/opencode.json` — that file is
-  SHARED with the canopy taskboard: never tune it for nvim. Its default model
-  (`fractal/qwen3.8-27b-96k`) is a vLLM GPU-0 engine; in-editor, switch to a
-  fleet model per session with `<leader>op`.
+  SHARED with the canopy taskboard (canonical copy:
+  `canopy_nine_ops/config/opencode/opencode.json`; keep the two in sync).
+  Default model is `fractal/qwen3.8-27b-q8` (fleet-resident, board-aligned,
+  changed from the vLLM 96k engine 2026-09-19). The plugin attaches to the
+  persistent `opencode-server.service` at `http://fractal:12530` rather than
+  spawning its own server; `systemctl --user status opencode-server` if the
+  panel can't connect.
 - Deeper context: `~/Projects/canopy_nine_ops/docs/operating.md` (overseer
   runbook), `~/Projects/llm-arbiter` (arbiter implementation), and
   `GET http://fractal:12500/placement` for live GPU ownership.

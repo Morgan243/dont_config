@@ -146,14 +146,14 @@ Claude's edits open as native diff buffers: `:w` (or `<leader>cy`) accepts,
 
 ## opencode.nvim — the board's harness, in-editor
 
-The same opencode CLI the taskboard dispatches, as an nvim sidebar. It spawns
-`opencode serve` itself and inherits `~/.config/opencode/opencode.json` — the
-**fractal arbiter provider (39 models)**. Don't tune that file for nvim (the
-board shares it); pick models per session instead.
-
-⚠ The global default model is `fractal/qwen3.8-27b-96k` — a **vLLM GPU-0
-engine**: first prompt while llama-swap owns GPU 0 = engine swap, minutes.
-`<leader>op` → pick `qwen3.8-27b-q8` for fleet-resident chat.
+The same opencode CLI the taskboard dispatches, as an nvim sidebar. It
+attaches to the household's persistent server (`opencode-server.service`,
+`http://fractal:12530`) and inherits `~/.config/opencode/opencode.json` — the
+**fractal arbiter provider (39 models)**, default `fractal/qwen3.8-27b-q8`
+(the board's fleet workhorse; llama-swap resident, no engine swap). That json
+is shared with the board — model experiments go through `<leader>op` (per
+session), not the file. If the panel won't connect:
+`systemctl --user status opencode-server`.
 
 | Key | Action |
 |---|---|

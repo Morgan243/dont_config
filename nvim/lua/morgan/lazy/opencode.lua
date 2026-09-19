@@ -5,10 +5,10 @@
 -- tune that file for nvim: the board shares it. Pick models per session
 -- with <leader>op instead.
 --
--- ⚠ The global default model there is fractal/qwen3.8-27b-96k — a vLLM
--- GPU-0 engine. If llama-swap owns GPU 0, the first prompt triggers an
--- engine swap (vLLM cold start, minutes). Switch to qwen3.8-27b-q8 for
--- fleet-resident chat (see AGENTS.md, "GPU-0 economics").
+-- Default model: fractal/qwen3.8-27b-q8 (set in opencode.json 2026-09-19,
+-- aligned with the board's GPU-0 fleet workhorse — llama-swap resident, no
+-- engine swap). Attaches to the persistent opencode-server.service
+-- (fractal:12530) instead of spawning its own `opencode serve`.
 return {
   'sudo-tee/opencode.nvim',
   event = 'VeryLazy',
@@ -24,6 +24,12 @@ return {
     require('opencode').setup({
       keymap_prefix = '<leader>o', -- <leader>o* namespace was free
       default_mode = 'build',
+      server = {
+        -- the household's persistent server (units/opencode-server.service
+        -- in canopy_nine_ops); binds the tailnet — no auth
+        url = 'http://fractal',
+        port = 12530,
+      },
       context = {
         -- current file, selection, and LSP diagnostics ride along by default
         cursor_data = { enabled = true },
