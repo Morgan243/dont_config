@@ -79,9 +79,13 @@ return {
           end_point = openai_compat_url .. 'chat/completions',
           model = model,
           optional = {
-            -- reasoning models: generous budget or completions come back empty
             max_tokens = 1024,
             top_p = 0.9,
+            -- qwen3.8 are reasoning models: without this they think for
+            -- seconds (past minuet's timeout) before emitting any content
+            -- -> "returns no text on streaming". Measured: 4.5s w/ thinking,
+            -- 0.76s without, for the same completion.
+            chat_template_kwargs = { enable_thinking = false },
           },
         },
       }
@@ -90,6 +94,7 @@ return {
     require('minuet').setup {
       provider = 'openai_compatible',
       notify = 'verbose',
+      request_timeout = 15, -- default 3s; headroom for big prompts / busy slots
       n_completions = 1,
       context_window = 2048,
       context_ratio = 0.75,
