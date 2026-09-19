@@ -69,9 +69,11 @@ Personal dotfiles/config repo. Currently one payload: the Neovim config in
   hostname, never an IP — house rule). No auth; clients that insist on a key
   get a dummy value. Model selection = the `model` field; llama-swap loads
   fleet profiles lazily by name.
-- Current models: `qwen3.8-27b-q8` (Q8+MTP, 4 slots × 160k, GPU 0; avante
-  default `arbiter_q8`) and `qwen3.8-flash-next-ik` (ik flash-next, GPU 0,
-  np1 × 128k; minuet default, avante `arbiter_flashnext`). Both are
+- Current models: `qwen3.8-27b-q8` (Q8+MTP, 4 slots × 160k, GPU 0) is the
+  default EVERYWHERE — minuet, avante (`arbiter_q8`), opencode, and the
+  board — deliberately one model so tools never thrash llama-swap's GPU-0
+  slot. `qwen3.8-flash-next-ik` (ik flash-next, GPU 0, np1 × 128k) is the
+  alternate (avante `arbiter_flashnext`, minuet preset l1/l3). Both are
   REASONING models — send generous max_tokens or completions come back
   empty; llama.cpp returns thinking in `reasoning_content`, content clean.
 - **GPU-0 economics:** requesting a GPU-0 model while a vLLM unit owns the

@@ -72,8 +72,8 @@ Servers auto-enable from whatever mason has installed — currently basedpyright
 | `<CR>` | Confirm |
 | `<C-Space>` | Trigger completion |
 | `<C-b>` / `<C-f>` | Scroll docs |
-| `<C-l>` | **Minuet**: fetch LLM completion — manual-only by design (arbiter models live on GPU 0; auto-fire could trigger engine swaps) |
-| `<leader>l1` / `l2` / `l3` | Minuet preset: `flashnext` (ik, fast) / `q8` (27B Q8, 4-slot) / `flashnext_mtp` (ik+MTP, fastest) |
+| `<C-l>` | **Minuet**: fetch LLM completion — default `qwen3.8-27b-q8` (same model as avante/opencode/board: no GPU-0 thrash); manual-only by design |
+| `<leader>l1` / `l2` / `l3` | Minuet preset: `flashnext` (ik) / `q8` (27B Q8 4-slot — the default) / `flashnext_mtp` (ik+MTP) — l1/l3 swap GPU 0 to a different model |
 
 Sources: LSP, luasnip, path, pandoc references, minuet, buffer.
 

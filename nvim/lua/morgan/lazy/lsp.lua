@@ -96,7 +96,9 @@ return {
       cmp = {
         enable_auto_complete = false, -- manual <C-l> only, see note above
       },
-      provider_options = arbiter_provider('qwen3.8-flash-next-ik'),
+      -- q8: same model as avante/opencode/board, so completions never
+      -- cause llama-swap to thrash GPU 0 between models
+      provider_options = arbiter_provider('qwen3.8-27b-q8'),
       presets = {
         flashnext = {
           provider = 'openai_compatible',
