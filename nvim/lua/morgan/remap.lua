@@ -114,6 +114,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+-- Snacks terminal: <C-/> toggles a shell at the project root (same key
+-- hides it again; double-<Esc> for normal mode inside). <leader>tp runs
+-- the current python file fresh each press — via uv when the project has
+-- a pyproject.toml, plain python3 otherwise.
+local function project_root()
+  return vim.fs.root(0, { 'pyproject.toml', '.git' }) or vim.fn.getcwd()
+end
+vim.keymap.set({ 'n', 't' }, '<C-/>', function()
+  Snacks.terminal(nil, { cwd = project_root() })
+end, { desc = 'Toggle terminal (project root)' })
+vim.keymap.set({ 'n', 't' }, '<C-_>', function() -- some terminals send C-_ for C-/
+  Snacks.terminal(nil, { cwd = project_root() })
+end, { desc = 'Toggle terminal (project root)' })
+vim.keymap.set('n', '<leader>tp', function()
+  local file = vim.fn.expand('%:p')
+  local root = project_root()
+  local cmd = { 'python3', file }
+  if vim.uv.fs_stat(root .. '/pyproject.toml') then
+    cmd = { 'uv', 'run', 'python', file }
+  end
+  Snacks.terminal.open(cmd, { cwd = root })
+end, { desc = 'Run current python file in terminal' })
+
 -- Snacks notifier (toast) history
 vim.keymap.set('n', '<leader>nh', function() Snacks.picker.notifications() end, { desc = 'Notification history (picker)' })
 vim.keymap.set('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss all toasts' })

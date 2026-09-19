@@ -17,6 +17,8 @@ is wired to yank/paste (`unnamedplus`).
 | `<leader>tT` | "Fullscreen" window via `:tab split` — makes a real tab page |
 | `:tabc` | Close a real tab page (exits `<leader>tT` fullscreen; `gt`/`gT` cycle). Errors with "Cannot close last tab page" if there's only one — then you want `<A-c>`/`:bd` instead |
 | `<leader>?` | Which-key: buffer-local keymaps |
+| `<C-/>` | Toggle terminal at project root (same key hides it; double-`<Esc>` for normal mode inside) |
+| `<leader>tp` | Run current python file in a fresh terminal split (`uv run` if the project has `pyproject.toml`, else `python3`) |
 
 ## Find (telescope)
 
@@ -199,6 +201,7 @@ remains a one-line revert if it ever truly dies.
 | `statuscolumn` | Unified left column: numbers, git + diagnostic signs, fold marks | Passive; click fold marks to fold |
 | `words` | Highlights other references of the symbol under cursor (LSP) | Highlight is automatic; `]]` / `[[` jump next/prev reference (cycles; takes a count) |
 | `bigfile` | Detects big files (>1.5MB) and disables treesitter/LSP etc. | Automatic — big logs open instantly |
+| `terminal` | Toggleable terminals | `<C-/>` shell at project root; `<leader>tp` run current python file; `:lua Snacks.terminal("cmd")` for anything else |
 | `quickfile` | Renders the file you opened before the rest of startup finishes | Automatic |
 
 ### Explorer keys (it's a picker: just type to fuzzy-filter the tree)
@@ -220,7 +223,7 @@ remains a one-line revert if it ever truly dies.
 
 | Module | What it gives you |
 |---|---|
-| `lazygit` / `terminal` | Float lazygit; toggleable terminals (`Snacks.terminal()`) |
+| `lazygit` | Float lazygit UI (needs the `lazygit` binary) |
 | `image` | Inline images via kitty graphics — candidate to replace 3rd/image.nvim for molten |
 | `rename` | LSP-aware file rename other plugins can call |
 | `gitbrowse` | Open current line/range on GitHub/GitLab in browser |
