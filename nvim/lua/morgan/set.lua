@@ -35,3 +35,12 @@ vim.opt_local.colorcolumn = "80"
 
 -- Yarepl is good, but it's missing some nice features and needs to much scripting to be useful quickly
 require('telescope').load_extension('REPLShow')
+
+-- Clearer separators between splits, whatever the colorscheme (most themes,
+-- cyberdream included, make WinSeparator nearly invisible). Re-applied on
+-- every :colorscheme so trying themes with <leader>fc keeps visible borders.
+local function bright_separators()
+  vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#7aa2f7', bg = 'NONE', bold = true })
+end
+bright_separators()
+vim.api.nvim_create_autocmd('ColorScheme', { callback = bright_separators })

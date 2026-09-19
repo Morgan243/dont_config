@@ -26,6 +26,7 @@ is wired to yank/paste (`unnamedplus`).
 | `<leader>fg` | Live grep |
 | `<leader>fb` | Buffers |
 | `<leader>fh` | Help tags |
+| `<leader>fc` | Colorscheme picker with **live preview** — arrow through themes, `<CR>` keeps, `<Esc>` reverts |
 
 Snacks provides a full picker too (`:lua Snacks.picker.pick()`) — see the Snacks section below.
 
