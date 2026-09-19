@@ -16,7 +16,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = "morgan.lazy",
-    change_detection = { notify = false }
+    change_detection = { notify = false },
+    -- no luarocks on this box; image.nvim's magick rock can't build anyway
+    rocks = { enabled = false, hererocks = false },
 })
 -- - - - - -
 

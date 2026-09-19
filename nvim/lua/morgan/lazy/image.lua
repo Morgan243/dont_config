@@ -1,6 +1,10 @@
 return {
   -- see the image.nvim readme for more information about configuring this plugin
   "3rd/image.nvim",
+  -- needs ImageMagick; auto-disable on boxes without it
+  enabled = function()
+    return vim.fn.executable("magick") == 1 or vim.fn.executable("convert") == 1
+  end,
   opts = {
     backend = "kitty", -- whatever backend you would like to use
     max_width = 100,

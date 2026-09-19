@@ -1,18 +1,21 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  -- the old master branch (and its nvim-treesitter.configs API) is frozen;
+  -- main needs the tree-sitter CLI on PATH
+  branch = "main",
   build = ":TSUpdate",
-  indent = { enable = true },
+  lazy = false,
   config = function()
-    local configs = require("nvim-treesitter.configs")
- 
-    configs.setup({
-      ensure_installed = {
-        "c", "lua", "vim", "vimdoc", "elixir", "javascript", "html", "python", "typescript"
-      },
-      sync_install = false,
-      highlight = { enable = true },
-      indent = { enable = true },
+    require("nvim-treesitter").install({
+      "c", "lua", "vim", "vimdoc", "elixir", "javascript", "html", "python", "typescript"
     })
-  end
-}
 
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(ev)
+        if pcall(vim.treesitter.start, ev.buf) then
+          vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
+  end,
+}
