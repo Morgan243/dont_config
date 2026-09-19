@@ -26,7 +26,7 @@ is wired to yank/paste (`unnamedplus`).
 | `<leader>fg` | Live grep |
 | `<leader>fb` | Buffers |
 | `<leader>fh` | Help tags |
-| `<leader>fc` | Colorscheme picker with **live preview** (snacks — sees lazy-loaded themes too) — `<CR>` keeps, `<Esc>` reverts. ~65 schemes: catppuccin ×4, kanagawa ×3, nightfox pack ×7, rose-pine ×3, tokyonight ×4, onedarkpro, gruvbox, everforest, oxocarbon, cyberdream… (`lazy/colors_extra.lua`; promote a keeper to the top of `set.lua`) |
+| `<leader>fc` | Colorscheme picker with **live preview** — the preview pane shows *your current buffer* under each theme; `<CR>` keeps, `<Esc>` reverts. ~65 schemes: catppuccin ×4, kanagawa ×3, nightfox pack ×7, rose-pine ×3, tokyonight ×4, onedarkpro, gruvbox, everforest, oxocarbon, cyberdream… (`lazy/colors_extra.lua`; promote a keeper to the top of `set.lua`) |
 
 Snacks provides a full picker too (`:lua Snacks.picker.pick()`) — see the Snacks section below.
 

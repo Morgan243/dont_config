@@ -7,10 +7,11 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
--- snacks picker, not telescope: it also lists colorschemes from UNLOADED
--- lazy plugins (the colors_extra.lua pack), which telescope can't see
+-- telescope, not snacks: its preview pane shows YOUR current buffer under
+-- each theme (snacks' shows the scheme's source file instead). The theme
+-- pack loads eagerly (colors_extra.lua) so getcompletion can see it.
 vim.keymap.set('n', '<leader>fc', function()
-  Snacks.picker.colorschemes()
+  builtin.colorscheme({ enable_preview = true })
 end, { desc = 'Colorscheme picker (live preview)' })
 
 -- Hack to sort of full screen a window by copying it to it's own tab
