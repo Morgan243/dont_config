@@ -62,126 +62,55 @@ return {
     -- End VectorCode plugin setup, see how it's used in minuet below --
     -- - - - - -
 
-    --local openai_compat_url = 'http://127.0.0.1:11434/v1/'
-    --local openai_compat_url = 'http://mesh:11434/v1/'
-    local openai_compat_url = 'http://fractal:11434/v1/'
+    -- Minuet -> the fractal arbiter (llm-arbiter front door, :12500).
+    -- Chat-style completion (openai_compatible): the fleet has no base/FIM
+    -- models anymore, so FIM templates are gone. Both default models are
+    -- GPU-0 profiles; completion is MANUAL ONLY (<C-l> in insert mode) so
+    -- keystrokes never trigger a GPU-0 engine swap mid-agent-run.
+    -- Presets (<leader>l1/l2/l3): flashnext | q8 | flashnext_mtp
+    local openai_compat_url = 'http://fractal:12500/v1/'
 
-    require('minuet').setup {
-      provider = 'openai_fim_compatible',
-      notify = "verbose",
-      n_completions = 1, -- recommend for local model for resource saving
-      -- I recommend beginning with a small context window size and incrementally
-      -- expanding it, depending on your local computing power. A context window
-      -- of 512, serves as an good starting point to estimate your computing
-      -- power. Once you have a reliable estimate of your local computing power,
-      -- you should adjust the context window to a larger value.
-      context_window = 1024,
-      -- when the total characters exceed the context window, the ratio of
-      -- context before cursor and after cursor, the larger the ratio the more
-      -- context before cursor will be used. This option should be between 0 and
-      -- 1, context_ratio = 0.75 means the ratio will be 3:1.
-      context_ratio = 0.75,
-
-      provider_options = {
-        openai_fim_compatible = {
-          name = 'Ollama',
+    local function arbiter_provider(model)
+      return {
+        openai_compatible = {
+          name = 'arbiter',
           stream = true,
-          api_key = 'TERM',
-          end_point = openai_compat_url .. 'completions',
-          model = 'qwen2.5-coder:3b-base-q4_K_M',
+          api_key = 'TERM', -- no auth on the arbiter; minuet just wants an env var that exists
+          end_point = openai_compat_url .. 'chat/completions',
+          model = model,
           optional = {
-            max_tokens = 128,
+            -- reasoning models: generous budget or completions come back empty
+            max_tokens = 1024,
             top_p = 0.9,
           },
         },
-      },
-      presets = {
-        small = {
-          provider = 'openai_fim_compatible',
-          notify = "verbose",
-          n_completions = 1, -- recommend for local model for resource saving
-          context_window = 10254,
-          context_ratio = .8,
-          provider_options = {
-            openai_fim_compatible = {
-              name = 'LLMo1',
-              stream = true,
-              api_key = 'TERM',
-              -- end_point = 'http://127.0.0.1:11434/v1/completions',
-              end_point = openai_compat_url .. 'completions',
-              --model = 'qwen2.5-coder-1.5b-instruct-abliterated',
-              model = 'qwen2.5-coder:3b-base-q4_K_M',
-              template = {
-                prompt = function(pref, suff)
-                  local prompt_message = ""
-                  if has_vc then
-                    for _, file in ipairs(vectorcode_cacher.query_from_cache(0)) do
-                      prompt_message = prompt_message .. '<|file_sep|>' .. file.path .. '\n' .. file.document
-                    end
-                  end
-                  prompt_message = vim.fn.strcharpart(prompt_message, 0, RAG_Context_Window_Size)
-
-                  return prompt_message
-                      .. "<|fim_prefix|>"
-                      .. pref
-                      .. "<|fim_suffix|>"
-                      .. suff
-                      .. "<|fim_middle|>"
-                end,
-                suffix = false
-              },
-              optional = {
-                max_tokens = 128,
-                top_p = 0.9,
-              },
-            },
-          }
-        },
-
-        med = {
-          provider = 'openai_fim_compatible',
-          notify = "verbose",
-          n_completions = 1, -- recommend for local model for resource saving
-          context_window = 1024,
-          context_ratio = 1.,
-          provider_options = {
-            openai_fim_compatible = {
-              name = 'LLMo2',
-              stream = true,
-              api_key = 'TERM',
-              --end_point = 'http://127.0.0.1:11434/v1/completions',
-              end_point = openai_compat_url .. 'completions',
-              model = 'qwen2.5-coder:7b-base-q4_K_M',
-              optional = {
-                max_tokens = 128,
-                top_p = 0.9,
-              },
-            },
-          }
-        },
-        big = {
-          provider = 'openai_fim_compatible',
-          notify = "verbose",
-          n_completions = 1, -- recommend for local model for resource saving
-          context_window = 1024,
-          context_ratio = 1.,
-          provider_options = {
-            openai_fim_compatible = {
-              name = 'LLMo3',
-              stream = true,
-              api_key = 'TERM',
-              --end_point = 'http://127.0.0.1:11434/v1/completions',
-              end_point = openai_compat_url .. 'completions',
-              model = 'qwen2.5-coder:14b-base-q4_K_M',
-              --model = "qwen2.5-coder:14b-instruct-q4_K_M",
-              optional = {
-                max_tokens = 128,
-                top_p = 0.9,
-              },
-            },
-          }
-        }
       }
+    end
+
+    require('minuet').setup {
+      provider = 'openai_compatible',
+      notify = 'verbose',
+      n_completions = 1,
+      context_window = 2048,
+      context_ratio = 0.75,
+      cmp = {
+        enable_auto_complete = false, -- manual <C-l> only, see note above
+      },
+      provider_options = arbiter_provider('qwen3.8-flash-next-ik'),
+      presets = {
+        flashnext = {
+          provider = 'openai_compatible',
+          provider_options = arbiter_provider('qwen3.8-flash-next-ik'),
+        },
+        q8 = {
+          provider = 'openai_compatible',
+          provider_options = arbiter_provider('qwen3.8-27b-q8'),
+        },
+        flashnext_mtp = {
+          provider = 'openai_compatible',
+          provider_options = arbiter_provider('qwen3.8-flash-next-ik-mtp'),
+        },
+      },
     }
 
     -- CAPABILITIES

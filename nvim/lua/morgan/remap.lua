@@ -1,6 +1,6 @@
-vim.keymap.set('n', '<leader>l1', '<Cmd>Minuet change_preset small<CR>')
-vim.keymap.set('n', '<leader>l2', '<Cmd>Minuet change_preset med<CR>')
-vim.keymap.set('n', '<leader>l3', '<Cmd>Minuet change_preset med<CR>')
+vim.keymap.set('n', '<leader>l1', '<Cmd>Minuet change_preset flashnext<CR>')
+vim.keymap.set('n', '<leader>l2', '<Cmd>Minuet change_preset q8<CR>')
+vim.keymap.set('n', '<leader>l3', '<Cmd>Minuet change_preset flashnext_mtp<CR>')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })

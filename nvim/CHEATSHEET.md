@@ -66,10 +66,10 @@ Servers auto-enable from whatever mason has installed — currently basedpyright
 | `<CR>` | Confirm |
 | `<C-Space>` | Trigger completion |
 | `<C-b>` / `<C-f>` | Scroll docs |
-| `<C-l>` | **Minuet**: fetch LLM completion (qwen2.5-coder FIM via `http://fractal:11434`) |
-| `<leader>l1` / `l2` / `l3` | Minuet preset small / med / med (`l3` says med — meant `big`?) |
+| `<C-l>` | **Minuet**: fetch LLM completion — manual-only by design (arbiter models live on GPU 0; auto-fire could trigger engine swaps) |
+| `<leader>l1` / `l2` / `l3` | Minuet preset: `flashnext` (ik, fast) / `q8` (27B Q8, 4-slot) / `flashnext_mtp` (ik+MTP, fastest) |
 
-Sources: LSP, luasnip, path, pandoc references, minuet, buffer. VectorCode RAG context feeds minuet automatically when a `vectorcode` executable + project config exist.
+Sources: LSP, luasnip, path, pandoc references, minuet, buffer.
 
 ## REPL (iron.nvim) — the data-science loop
 
@@ -93,17 +93,22 @@ Sources: LSP, luasnip, path, pandoc references, minuet, buffer. VectorCode RAG c
 
 Quarto (`.qmd`) runs cells through iron as well. yarepl is installed as backup (`:REPLStart` — the `ipythonfractal` meta sshes to fractal); its keymaps are commented out.
 
-## LLM tools
+## LLM tools — all routed through the arbiter (`http://fractal:12500/v1`)
+
+Model names route via llama-swap; both defaults are **GPU-0** profiles, so a
+request while vLLM owns the card triggers a drain + engine swap (up to ~3 min),
+and densify owns GPU 0 22:00–06:45. No auth.
 
 | Key / Command | Action |
 |---|---|
-| `<C-m>c` | model.nvim: `:Mchat` — chat buffer (`qm` = qwen 7b, `ql` = qwen 14b) |
-| `<C-m>m` | model.nvim: `:M` — run prompt |
-| `<C-m>s` / `<C-m>d` | `:Mselect` / `:Mdelete` |
-| `:AvanteAsk` (`<leader>aa`) | Avante sidebar — cursor-style chat over the buffer (ollama qwen2.5-coder:7b) |
+| `:AvanteAsk` (`<leader>aa`) | Avante sidebar — default provider `arbiter_q8` (qwen3.8-27b-q8, 4×160k) |
+| `:AvanteSwitchProvider arbiter_flashnext` | Switch avante to qwen3.8-flash-next-ik |
 | `<leader>ae` / `<leader>at` | Avante: edit selection / toggle sidebar (default avante maps) |
+| `<C-m>c` | model.nvim: `:Mchat` — `qm` = flash-next-ik, `ql` = 27b-q8 |
+| `<C-m>m` | model.nvim: `:M` — run prompt (`q` = code-only prompt on flash-next-ik) |
+| `<C-m>s` / `<C-m>d` | `:Mselect` / `:Mdelete` |
 
-All point at ollama on `http://fractal:11434` — needs ollama actually serving there.
+`curl http://fractal:12500/placement` shows who owns GPU 0 before you commit to a heavy ask.
 
 ## Sessions (auto-session)
 
@@ -123,7 +128,7 @@ Sessions restore per-directory automatically (suppressed in `~`, `~/Projects`, `
 
 | Command | What |
 |---|---|
-| `:Lazy` | Plugin manager (lockfile-less on dev — sync pulls latest) |
+| `:Lazy` | Plugin manager (`lazy-lock.json` pins versions; `:Lazy sync` updates + rewrites it) |
 | `:Mason` / `<leader>cm` | LSP & tool installer |
 | `:TSUpdate` | Update treesitter parsers (main branch, needs `tree-sitter` CLI — installed in `~/.local/bin`) |
 | `:RsyncUp` / `:RsyncDown` | rsync.nvim project sync (needs `.nvim-rsync` config) |

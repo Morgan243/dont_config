@@ -2,7 +2,7 @@
 
 --local openai_compat_url = 'http://127.0.0.1:11434/v1/'
 --local openai_compat_url = 'http://mesh:11434/v1/'
-local openai_compat_url = 'http://fractal:11434/v1/'
+local openai_compat_url = 'http://fractal:12500/v1/' -- the arbiter front door
 local function input_if_selection(input, context)
   return context.selection and input or ''
 end
@@ -89,9 +89,10 @@ return {
       -- - -
       -- Default
       default_prompt = {
-        provider = require("model.providers.ollama"),
+        provider = require("model.providers.openai"),
+        options = { url = openai_compat_url },
         params = {
-          model = 'qwen2.5-coder:7b-instruct-q4_K_M'
+          model = 'qwen3.8-27b-q8'
         },
         transform = require("model.prompts.extract").markdown_code,
         builder = function(input)
@@ -117,13 +118,13 @@ return {
       --
 
       chats = {
-        -- Qwen medium
+        -- flash-next ik (GPU 0, np1 x 128k)
         ['qm'] = {
           provider = require("model.providers.openai"),
           params = {
             temperature = 0.2,
             max_tokens = 1000,
-            model = "qwen2.5-coder:7b-instruct-q4_K_M",
+            model = "qwen3.8-flash-next-ik",
           },
           options = { url = openai_compat_url },
           system = "You are an expert programmer.",
@@ -138,13 +139,13 @@ return {
             return { messages = messages }
           end,
         },
-        -- Qwen Large
+        -- 27B Q8 + MTP (GPU 0, 4 slots x 160k)
         ['ql'] = {
           provider = require("model.providers.openai"),
           params = {
             temperature = 0.2,
             max_tokens = 1000,
-            model = "qwen2.5-coder:14b-instruct-q4_K_M",
+            model = "qwen3.8-27b-q8",
           },
           options = { url = openai_compat_url },
           system = "You are an expert programmer.",
@@ -220,7 +221,7 @@ return {
         --},
         ['q'] = {
           provider = require("model.providers.openai"),
-          params = { model = "qwen2.5-coder:7b-instruct-q4_K_M" },
+          params = { model = "qwen3.8-flash-next-ik" },
           options = { url = openai_compat_url },
           builder = function(input, context)
             local current_buf_lang = vim.api.nvim_get_option_value('filetype', { buf = 0 })
@@ -247,7 +248,7 @@ return {
           params = {
             temperature = 0.2,
             max_tokens = 1000,
-            model = "qwen2.5-coder:7b-instruct-q4_K_M",
+            model = "qwen3.8-flash-next-ik",
           },
           options = { url = openai_compat_url },
           builder = function(input, context)
@@ -264,7 +265,7 @@ return {
           params = {
             temperature = 0.2,
             max_tokens = 1000,
-            model = "qwen2.5-coder:7b-instruct-q4_K_M",
+            model = "qwen3.8-flash-next-ik",
           },
           options = { url = openai_compat_url },
           builder = function(input, context)
@@ -279,7 +280,7 @@ return {
           params = {
             temperature = 0.2,
             max_tokens = 1000,
-            model = "qwen2.5-coder:14b-instruct-q4_K_M",
+            model = "qwen3.8-27b-q8",
           },
           options = { url = openai_compat_url },
           builder = function(input, context)
