@@ -83,6 +83,11 @@ vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>')
 vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>')
 
 
+-- Snacks words: jump between LSP references of the symbol under cursor
+-- (replaces the rarely-used "next/prev section" motions)
+vim.keymap.set('n', ']]', function() Snacks.words.jump(vim.v.count1, true) end, { desc = 'Next reference' })
+vim.keymap.set('n', '[[', function() Snacks.words.jump(-vim.v.count1, true) end, { desc = 'Prev reference' })
+
 -- Snacks notifier (toast) history
 vim.keymap.set('n', '<leader>nh', function() Snacks.picker.notifications() end, { desc = 'Notification history (picker)' })
 vim.keymap.set('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss all toasts' })

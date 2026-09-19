@@ -137,7 +137,7 @@ remains a one-line revert if it ever truly dies.
 | `scope` | Scope-aware textobjects and motions (treesitter/indent) | `vii`/`vai` select inner/full scope (any operator: `dii`, `yai`…); `[i` / `]i` jump to scope top/bottom edge |
 | `scroll` | Smooth scrolling | Passive — `<C-d>`/`<C-u>` animate instead of teleporting |
 | `statuscolumn` | Unified left column: numbers, git + diagnostic signs, fold marks | Passive; click fold marks to fold |
-| `words` | Highlights other references of the symbol under cursor (LSP) | Highlight is automatic; no default jump keys — `:lua Snacks.words.jump(1)` / `(-1)` for next/prev if wanted |
+| `words` | Highlights other references of the symbol under cursor (LSP) | Highlight is automatic; `]]` / `[[` jump next/prev reference (cycles; takes a count) |
 | `bigfile` | Detects big files (>1.5MB) and disables treesitter/LSP etc. | Automatic — big logs open instantly |
 | `quickfile` | Renders the file you opened before the rest of startup finishes | Automatic |
 
