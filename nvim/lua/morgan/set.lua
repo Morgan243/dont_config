@@ -1,5 +1,6 @@
 --vim.cmd.colorscheme("tokyonight")
-vim.cmd.colorscheme("cyberdream")
+--vim.cmd.colorscheme("cyberdream")
+vim.cmd.colorscheme("wildcharm")
  
 vim.opt.clipboard = 'unnamedplus' -- use system keyboard for yank
  

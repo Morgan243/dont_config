@@ -4,7 +4,7 @@ Leader = `<Space>`, so `<leader>x` and `<space>x` below are the same key.
 Forgot something? `<leader>?` shows buffer-local maps, and which-key pops up
 automatically if you pause after any prefix.
 
-Colorscheme: cyberdream (tokyonight and onedarkpro installed). System clipboard
+Colorscheme: wildcharm (builtin; ~65 more via `<leader>fc`). System clipboard
 is wired to yank/paste (`unnamedplus`).
 
 ## Editor basics
