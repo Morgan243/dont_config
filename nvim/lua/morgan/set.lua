@@ -29,7 +29,9 @@ vim.opt.foldenable = false
 vim.opt.foldlevel = 99
 --g.markdown_folding = 1 -- enable markdown folding
 vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
+-- cursorcolumn redraws a full column on every cursor move — measurable
+-- input lag with treesitter + statuscolumn active; re-enable if missed
+vim.opt.cursorcolumn = false
 
 vim.opt_local.colorcolumn = "80"
 
