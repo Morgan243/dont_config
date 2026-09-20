@@ -175,7 +175,7 @@ session), not the file. If the panel won't connect:
 
 Input window: `<S-CR>` submit, `@` mention file/agent, `~` file picker, `/`
 slash commands, `#` manage context, `<M-m>` switch build/plan mode, `<C-c>`
-cancel request. Output window: `]]`/`[[` prev/next message, `gf` jump to file,
+cancel request. Output window: `]]`/`[[` next/prev message, `]u`/`[u` next/prev **user** message (`[u` from the bottom = your last prompt), `gf` jump to file,
 `<Tab>` swap pane. Permission prompts: `a` accept once, `A` accept all, `d` deny.
 **Context is opt-in** (all auto-attach off in our config): `#` opens the
 context menu (cmp popup — `<Tab>` move, `<CR>` toggles the item on/off), `@`
