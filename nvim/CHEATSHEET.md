@@ -58,6 +58,7 @@ Servers auto-enable from whatever mason has installed — currently basedpyright
 | `<space>D` | Type definition |
 | `<space>f` | LSP format (async) |
 | `<space>wl` | List workspace folders |
+| `<leader>e` (or builtin `<C-w>d`) | Float the full diagnostic for the current line — what the red `E` is about |
 | `<leader>xx` / `<leader>xX` | Trouble: all / buffer diagnostics |
 | `<leader>cs` | Trouble: symbols |
 | `<leader>xL` / `<leader>xQ` | Trouble: loclist / quickfix |

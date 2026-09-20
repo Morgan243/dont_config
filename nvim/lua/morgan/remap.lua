@@ -147,8 +147,9 @@ vim.keymap.set('n', '<leader>wr', '<cmd>SessionSearch<CR>', { desc = 'Session se
 vim.keymap.set('n', '<leader>ws', '<cmd>SessionSave<CR>', { desc = 'Save session' } )
 vim.keymap.set('n', '<leader>wa', '<cmd>SessionToggleAutoSave<CR>', { desc = 'Toggle autosave' })
 
---vim.keymap.set('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
---vim.api.nvim_buf_set_option('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', { noremap=true, silent=true })
+-- Float the diagnostic(s) on the current line (the red E's full message).
+-- Builtin <C-w>d does the same; this is the home-row version.
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Line diagnostics float' })
 
 -- Quarto + Iron repl mappings
 --local runner = require("quarto.runner")
