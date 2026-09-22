@@ -30,6 +30,20 @@ return {
         url = 'http://fractal',
         port = 12530,
       },
+      ui = {
+        output = {
+          -- long sessions locked nvim up while scrolling history: the pane
+          -- lazy-loads + markdown-renders older turns unbounded by default
+          max_messages = 60,
+          rendering = {
+            markdown_on_idle = true, -- defer markdown passes while streaming
+          },
+          tools = {
+            -- qwen3.8 reasoning is 1k+ chars per turn; skip rendering it
+            show_reasoning_output = false,
+          },
+        },
+      },
       context = {
         -- nothing auto-attaches: opt in per message with the # menu
         -- (toggle back on) or @ mentions; <CR> in the popup confirms
