@@ -5,7 +5,11 @@
 return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  config = true,
+  opts = {
+    terminal = {
+      split_width_percentage = 0.40, -- default 0.30 felt cramped
+    },
+  },
   -- `cmd` stubs so the :ClaudeCode* commands exist before any key is pressed
   cmd = {
     "ClaudeCode",
