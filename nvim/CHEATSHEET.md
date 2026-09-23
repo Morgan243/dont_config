@@ -145,9 +145,10 @@ Mason / Trouble symbols / iron REPL clear; Claude only uses the free letters.
 | `<leader>cy` / `<leader>cn` | Accept / deny Claude's proposed diff |
 
 **Leaving the pane:** in terminal mode every key goes to Claude (`<C-w>` =
-its delete-word, leader types a space) — `<C-\><C-n>` (or `<Esc><Esc>`) drops
-to normal mode first, then `<C-w>h` etc. moves out; `<leader>cf` refocuses it
-from elsewhere. **Width:** 40% by default (`split_width_percentage` in
+its delete-word, leader types a space, and with CC's vim mode on, Esc is ITS
+normal-mode/cancel — don't use `<Esc><Esc>` here). `<C-\><C-n>` is the one
+chord nvim never forwards: it drops to nvim's normal mode, then `<C-w>h` etc.
+moves out; `i` re-enters, `<leader>cf` refocuses from elsewhere. **Width:** 40% by default (`split_width_percentage` in
 `lazy/claudecode.lua`); ad-hoc `<C-w>>`/`<C-w><` or `:vertical resize N` from
 normal mode, though the plugin may snap back to the percentage around diffs.
 
