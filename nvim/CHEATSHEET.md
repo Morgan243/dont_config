@@ -148,7 +148,9 @@ Mason / Trouble symbols / iron REPL clear; Claude only uses the free letters.
 its delete-word, leader types a space, and with CC's vim mode on, Esc is ITS
 normal-mode/cancel — don't use `<Esc><Esc>` here). `<C-\><C-n>` is the one
 chord nvim never forwards: it drops to nvim's normal mode, then `<C-w>h` etc.
-moves out; `i` re-enters, `<leader>cf` refocuses from elsewhere. **Width:** 40% by default (`split_width_percentage` in
+moves out; `i` re-enters, `<leader>cf` refocuses from elsewhere.
+**Fullscreen:** `<C-\><C-n>` then `<leader>tT` puts the pane in its own tab
+(`:tabc` returns to the split layout); `<C-w>|`+`<C-w>_` maximizes in place. **Width:** 40% by default (`split_width_percentage` in
 `lazy/claudecode.lua`); ad-hoc `<C-w>>`/`<C-w><` or `:vertical resize N` from
 normal mode, though the plugin may snap back to the percentage around diffs.
 
@@ -180,6 +182,7 @@ session), not the file. If the panel won't connect:
 | `<leader>ort` / `<leader>ora` | Revert this / all changes from the last prompt (`orT`/`orA` = whole session) |
 | `<leader>oy` | Add visual selection to context |
 | `<leader>ot` | Toggle focus editor ↔ opencode |
+| `<leader>oz` | **Zoom** the opencode panel to 80% width (toggle) |
 
 Input window: `<S-CR>` submit, `@` mention file/agent, `~` file picker, `/`
 slash commands, `#` manage context, `<M-m>` switch build/plan mode, `<C-c>`
