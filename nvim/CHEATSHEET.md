@@ -144,6 +144,13 @@ Mason / Trouble symbols / iron REPL clear; Claude only uses the free letters.
 | `<leader>cs` (in snacks explorer) | Add the hovered file to context — shadows Trouble's symbols map inside the tree |
 | `<leader>cy` / `<leader>cn` | Accept / deny Claude's proposed diff |
 
+**Leaving the pane:** in terminal mode every key goes to Claude (`<C-w>` =
+its delete-word, leader types a space) — `<C-\><C-n>` (or `<Esc><Esc>`) drops
+to normal mode first, then `<C-w>h` etc. moves out; `<leader>cf` refocuses it
+from elsewhere. **Width:** 40% by default (`split_width_percentage` in
+`lazy/claudecode.lua`); ad-hoc `<C-w>>`/`<C-w><` or `:vertical resize N` from
+normal mode, though the plugin may snap back to the percentage around diffs.
+
 Claude's edits open as native diff buffers: `:w` (or `<leader>cy`) accepts,
 `:q` (or `<leader>cn`) rejects — you can edit the proposal before accepting.
 `:ClaudeCodeCloseAllDiffs` clears leftover pending proposals.
