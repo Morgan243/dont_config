@@ -3,6 +3,24 @@
 vim.cmd.colorscheme("wildcharm")
  
 vim.opt.clipboard = 'unnamedplus' -- use system keyboard for yank
+
+-- Over SSH (kitty ssh kitten) there's no display for wl-copy/xclip, so
+-- yanks silently never reached the local clipboard. OSC 52 writes the
+-- LOCAL machine's clipboard through the tty (kitty allows writes by
+-- default). Copy-only: '+p mirrors the unnamed register instead of an
+-- OSC 52 read, which would trigger kitty's clipboard-read prompt —
+-- paste from outside stays on the local terminal's Ctrl+Shift+V.
+if vim.env.SSH_TTY then
+  local osc52 = require('vim.ui.clipboard.osc52')
+  local function paste_from_unnamed()
+    return { vim.fn.split(vim.fn.getreg('"'), '\n'), vim.fn.getregtype('"') }
+  end
+  vim.g.clipboard = {
+    name = 'OSC 52 (copy-only)',
+    copy = { ['+'] = osc52.copy('+'), ['*'] = osc52.copy('*') },
+    paste = { ['+'] = paste_from_unnamed, ['*'] = paste_from_unnamed },
+  }
+end
  
 vim.opt.nu = true                 -- set line numbers -- set line numbers
 vim.opt.relativenumber = true     -- use relative line numbers
