@@ -20,6 +20,7 @@ is wired to yank/paste (`unnamedplus`).
 | `<leader>tc` | Toggle sticky scope context — enclosing `class`/`def` signature lines pinned at the top of the window (treesitter-context, max 4 lines) |
 | `<C-/>` | Toggle terminal at project root (same key hides it; double-`<Esc>` for normal mode inside) |
 | `<leader>tp` | Run current python file in a fresh terminal split (`uv run` if the project has `pyproject.toml`, else `python3`) |
+| `<leader>tw` | Toggle line wrap in this buffer. Wrap is word-boundary + indent-preserving (`linebreak`/`breakindent`, `↪` marker); on by default for markdown/text/quarto/gitcommit. `j`/`k` move by display line when wrapped (counts like `5j` still use real lines) |
 
 ## Find (telescope)
 

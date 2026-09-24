@@ -36,6 +36,17 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
  
 vim.opt.wrap = false
+-- when wrap IS on (prose filetypes below, or <leader>tw), make it pretty:
+-- break at word boundaries, keep the indent on continuation lines
+vim.opt.linebreak = true
+vim.opt.breakindent = true
+vim.opt.showbreak = '↪ '
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'markdown', 'text', 'gitcommit', 'quarto', 'rmd', 'mchat' },
+  callback = function()
+    vim.opt_local.wrap = true
+  end,
+})
  
 vim.opt.incsearch = true -- incremental search
  

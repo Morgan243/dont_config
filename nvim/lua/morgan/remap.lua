@@ -1,3 +1,9 @@
+-- j/k move by DISPLAY line when lines wrap (plain j/k with a count, so
+-- 5j and relativenumber jumps still address real lines)
+vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', '<leader>tw', '<cmd>setlocal wrap!<cr>', { desc = 'Toggle line wrap' })
+
 vim.keymap.set('n', '<leader>l1', '<Cmd>Minuet change_preset flashnext<CR>')
 vim.keymap.set('n', '<leader>l2', '<Cmd>Minuet change_preset q8<CR>')
 vim.keymap.set('n', '<leader>l3', '<Cmd>Minuet change_preset flashnext_mtp<CR>')
