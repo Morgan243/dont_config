@@ -96,6 +96,14 @@ Personal dotfiles/config repo. Currently one payload: the Neovim config in
   persistent `opencode-server.service` at `http://fractal:12530` rather than
   spawning its own server; `systemctl --user status opencode-server` if the
   panel can't connect.
+- opencode is on **v2** since the 2026-09-24 system update (v1 API routes
+  are gone). The plugin therefore rides its `v2` branch (see the spec) —
+  fold back to main when upstream merges it. v2 requires server auth:
+  the password lives machine-locally in `~/.config/opencode/server.env`
+  (consumed by the unit) and `~/.config/opencode/server.password` (read
+  by the plugin via `password_file`). Both 0600, neither ever committed.
+  A "list sessions returned invalid data" or "credential error" after an
+  opencode upgrade means this contract broke again.
 - Deeper context: `~/Projects/canopy_nine_ops/docs/operating.md` (overseer
   runbook), `~/Projects/llm-arbiter` (arbiter implementation), and
   `GET http://fractal:12500/placement` for live GPU ownership.

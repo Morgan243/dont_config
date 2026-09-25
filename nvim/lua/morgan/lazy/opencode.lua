@@ -11,6 +11,10 @@
 -- (fractal:12530) instead of spawning its own `opencode serve`.
 return {
   'sudo-tee/opencode.nvim',
+  -- the system opencode CLI jumped to v2 (2026-09-24 reboot); the v1 API
+  -- routes are gone, and plugin main still speaks v1 — v2 support lives
+  -- on this branch. Fold back to main once upstream merges it.
+  branch = 'v2',
   event = 'VeryLazy',
   dependencies = {
     'folke/snacks.nvim', -- picker
@@ -26,9 +30,12 @@ return {
       default_mode = 'build',
       server = {
         -- the household's persistent server (units/opencode-server.service
-        -- in canopy_nine_ops); binds the tailnet — no auth
+        -- in canopy_nine_ops). opencode v2 requires auth: the password is
+        -- pinned machine-locally in ~/.config/opencode/server.env (unit)
+        -- and read here from its sibling file — never committed
         url = 'http://fractal',
         port = 12530,
+        password_file = vim.fn.expand('~/.config/opencode/server.password'),
       },
       ui = {
         output = {
